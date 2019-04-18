@@ -95,7 +95,7 @@
         </div>
 
         <div class="buttons mt-3">
-            <a href="#" class="btn btn-success">Export to CSV</a>
+            <a href="#" class="btn btn-success">Export to CSV (dont works)</a>
         </div>
     </div>
 

@@ -154,4 +154,12 @@ abstract class Model
         $stmt  = static::$connection->prepare($sql);
         return $stmt->execute($this->attributes);
     }
+
+    public function delete()
+    {
+        static::setConnection();
+        $sql = "DELETE FROM " . static::$table . " WHERE id = :id";
+        $stmt = static::$connection->prepare($sql);
+        return $stmt->execute(['id' => $this->id]);
+    }
 }

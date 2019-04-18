@@ -8,6 +8,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Import</button>
+                <a href="/clear" class="btn btn-secondary">Clear all records</a>
             </div>
         </form>
     </div>
