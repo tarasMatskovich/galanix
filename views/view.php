@@ -11,29 +11,31 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-4">
-                        <input type="text" name="name" placeholder="Name" class="form-control">
+                        <input type="text" name="name" placeholder="Name" class="form-control" value="<?php echo $_GET['name']?>">
                     </div>
                     <div class="col-4">
-                        <input type="text" name="age" placeholder="Age" class="form-control">
+                        <input type="text" name="age" placeholder="Age" class="form-control" value="<?php echo $_GET['age']?>">
                     </div>
                     <div class="col-4">
-                        <input type="text" name="email" placeholder="Email" class="form-control">
+                        <input type="text" name="email" placeholder="Email" class="form-control" value="<?php echo $_GET['email']?>">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-4">
-                        <input type="text" name="phone" placeholder="Phone" class="form-control">
+                        <input type="text" name="phone" placeholder="Phone" class="form-control" value="<?php echo $_GET['phone']?>">
                     </div>
                     <div class="col-4">
                         <select name="gender" class="form-control">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="">Not selected</option>
+                            <option value="male" <?php if($_GET['gender'] === 'male') echo 'selected';?>>Male</option>
+                            <option value="female" <?php if($_GET['gender'] === 'female') echo 'selected';?>>Female</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary">Apply</button>
+                        <a href="/view" class="btn btn-secondary">Clear</a>
                     </div>
                 </div>
             </form>

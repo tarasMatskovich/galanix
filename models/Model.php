@@ -54,22 +54,43 @@ abstract class Model
         return static::class;
     }
 
+    protected static function createWhereQuery()
+    {
+//        $where = '';
+//        if (!empty(static::$params)) {
+//            $where .= " WHERE ";
+//            foreach (static::$params as $field => $value) {
+//                $where .= $field . "=" . ":" . $field . " AND ";
+//            }
+//            $where = substr($where, 0, -5);
+//        }
+//        return $where;
+        $params = static::$params;
+        $where = "";
+        if (!empty($params)) {
+            $where = " WHERE ";
+            foreach ($params as $field => $value) {
+                $where .= "`" . $field . "` " . $value['operator'] . " " . ":" . $field .  ' AND ';
+            }
+            $where = substr($where, 0, -5);
+        }
+        return $where;
+    }
+
     public static function get()
     {
         static::setConnection();
-        $sql = "SELECT * FROM " . static::$table;
-        if (!empty(static::$params)) {
-            $sql .= " WHERE ";
-            foreach (static::$params as $field => $value) {
-                $sql .= $field . "=" . ":" . $field . " AND ";
-            }
-            $sql = substr($sql, 0, -5);
-        }
+        $where = static::createWhereQuery();
+        $sql = "SELECT * FROM " . static::$table . $where;
         $stmt = static::$connection->prepare($sql);
         foreach (static::$params as $field => $value) {
             $stmt->bindParam(":" . $field, $value);
         }
-        $stmt->execute();
+        $assocs = [];
+        foreach (static::$params as $field => $value) {
+            $assocs[$field] = $value['value'];
+        }
+        $stmt->execute($assocs);
         $collection = array();
         while ($row = $stmt->fetch()) {
             $activeRecord = new static;
