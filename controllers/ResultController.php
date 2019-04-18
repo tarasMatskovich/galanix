@@ -15,6 +15,8 @@ class ResultController extends BaseController
         if (isset($_GET['filter'])) {
             $filters = $_GET['filter'];
         }
+        if (isset($_GET['path']))
+            unset($_GET['path']);
         if (isset($_GET['order'])) {
             if ($_GET['order']['type'] == 'asc') {
                 // then desc
@@ -82,7 +84,7 @@ class ResultController extends BaseController
                 }
             }
         } else {
-            if (count($_GET) > 1) {
+            if (count($_GET) > 0) {
                 $nameOrderLink = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&order[name]=name&order[type]=asc";
                 $ageOrderLink = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&order[name]=age&order[type]=asc";
                 $emailOrderLink = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . "&order[name]=email&order[type]=asc";
