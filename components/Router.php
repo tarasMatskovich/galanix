@@ -63,8 +63,12 @@ class Router
                 if ($uri == "" && $routePattern == '/') {
                     $internalRoute = $path;
                     break;
-                } elseif($uri != "" && preg_match("~^$routePattern$~", $uri)) {
+                } elseif($uri != "" && preg_match("~^$routePattern(\?{1}.*)|$routePattern$~", $uri)) {
                     $internalRoute = preg_replace("~^$routePattern$~", $path, $uri);
+                    $complicatedRoute = explode('?', $internalRoute);
+                    if (count($complicatedRoute) > 1) {
+                        $internalRoute = preg_replace("~^$routePattern$~", $path, array_shift($complicatedRoute));
+                    }
                     break;
                 }
             }
