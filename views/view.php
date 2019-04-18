@@ -11,24 +11,24 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-4">
-                        <input type="text" name="name" placeholder="Name" class="form-control" value="<?php echo $_GET['name']?>">
+                        <input type="text" name="filter[name]" placeholder="Name" class="form-control" value="<?php echo $_GET['filter']['name']?>">
                     </div>
                     <div class="col-4">
-                        <input type="text" name="age" placeholder="Age" class="form-control" value="<?php echo $_GET['age']?>">
+                        <input type="text" name="filter[age]" placeholder="Age" class="form-control" value="<?php echo $_GET['filter']['age']?>">
                     </div>
                     <div class="col-4">
-                        <input type="text" name="email" placeholder="Email" class="form-control" value="<?php echo $_GET['email']?>">
+                        <input type="text" name="filter[email]" placeholder="Email" class="form-control" value="<?php echo $_GET['filter']['email']?>">
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-4">
-                        <input type="text" name="phone" placeholder="Phone" class="form-control" value="<?php echo $_GET['phone']?>">
+                        <input type="text" name="filter[phone]" placeholder="Phone" class="form-control" value="<?php echo $_GET['filter']['phone']?>">
                     </div>
                     <div class="col-4">
-                        <select name="gender" class="form-control">
+                        <select name="filter[gender]" class="form-control">
                             <option value="">Not selected</option>
-                            <option value="male" <?php if($_GET['gender'] === 'male') echo 'selected';?>>Male</option>
-                            <option value="female" <?php if($_GET['gender'] === 'female') echo 'selected';?>>Female</option>
+                            <option value="male" <?php if($_GET['filter']['gender'] === 'male') echo 'selected';?>>Male</option>
+                            <option value="female" <?php if($_GET['filter']['gender'] === 'female') echo 'selected';?>>Female</option>
                         </select>
                     </div>
                 </div>
@@ -47,11 +47,21 @@
                     <thead>
                         <tr>
                             <th scope="col">UID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Age</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Gender</th>
+                            <th scope="col">
+                                <a href="<?php echo "http://" . $name ?>">Name</a>
+                            </th>
+                            <th scope="col">
+                                <a href="<?php echo "http://" . $age ?>">Age</a>
+                            </th>
+                            <th scope="col">
+                                <a href="<?php echo "http://" . $email ?>">Email</a>
+                            </th>
+                            <th scope="col">
+                                <a href="<?php echo "http://" . $phone ?>">Phone</a>
+                            </th>
+                            <th scope="col">
+                                <a href="<?php echo "http://" . $gender ?>">Gender</a>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

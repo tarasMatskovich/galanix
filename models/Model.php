@@ -12,6 +12,7 @@ abstract class Model
     protected static $table = null;
     protected $attributes = [];
     protected static $params = [];
+    protected static $orders = [];
 
     public static function setConnection() {
         static::$connection = DB::getConnection();
@@ -54,17 +55,25 @@ abstract class Model
         return static::class;
     }
 
+    public static function orderBy(array $params) {
+        static::$orders = $params;
+        return static::class;
+    }
+
+    protected static function createOrderQuery()
+    {
+        $orders = static::$orders;
+        $order = "";
+        if (!empty($orders)) {
+            foreach ($orders as $key => $value) {
+                $order = " ORDER BY " . $key . " " . $value;
+            }
+        }
+        return $order;
+    }
+
     protected static function createWhereQuery()
     {
-//        $where = '';
-//        if (!empty(static::$params)) {
-//            $where .= " WHERE ";
-//            foreach (static::$params as $field => $value) {
-//                $where .= $field . "=" . ":" . $field . " AND ";
-//            }
-//            $where = substr($where, 0, -5);
-//        }
-//        return $where;
         $params = static::$params;
         $where = "";
         if (!empty($params)) {
@@ -81,7 +90,8 @@ abstract class Model
     {
         static::setConnection();
         $where = static::createWhereQuery();
-        $sql = "SELECT * FROM " . static::$table . $where;
+        $order = static::createOrderQuery();
+        $sql = "SELECT * FROM " . static::$table . $where . $order;
         $stmt = static::$connection->prepare($sql);
         foreach (static::$params as $field => $value) {
             $stmt->bindParam(":" . $field, $value);
@@ -100,6 +110,7 @@ abstract class Model
             $collection[] = $activeRecord;
         }
         static::$params = [];
+        static::$orders = [];
         return $collection;
     }
 
